@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.shareapp1">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <provider
+            android:name=".ReadWriteProvider"
+            android:authorities="com.example.shareapp1.readwrite.provider"
+            android:enabled="true"
+            android:exported="true"></provider>
+
+        <service
+            android:name="com.example.shareapp.aidl.ReadWriteBinderService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.shareapp1.adil.BIND" />
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name=".ReadWriteServerReceiver"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.shareapp1.action.START" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.shareapp1.category.READ_DATA" />
+                <category android:name="com.shareapp1.category.WRITE_DATA" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
